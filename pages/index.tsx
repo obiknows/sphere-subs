@@ -9,8 +9,8 @@ export default function Homepage() {
           <div className="sm:max-w-lg">
             <h1 className="font text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">The Subs are Here</h1>
             <p className="mt-4 text-xl text-gray-500">
-              This year, we're changing the sandwich game for the better. Our new sandwich delivery subscription will
-              shelter you from the harsh elements of a world that doesn't care about subs
+              This year, we&apos;re changing the sandwich game for the better. Our new sandwich delivery subscription
+              will shelter you from the harsh elements of a world that doesn&apos;t care about subs
             </p>
           </div>
           <div>
