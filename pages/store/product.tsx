@@ -3,6 +3,7 @@ import { useRef, useEffect, useState } from "react"
 import { RadioGroup } from "@headlessui/react"
 import Script from "next/script"
 import Head from "next/head"
+import { log } from "console"
 
 type Subscription = {
   name: string
@@ -71,6 +72,7 @@ export default function ProductPage() {
 
   const startCheckout = (e: React.SyntheticEvent) => {
     // prevent default form submission, our embedded js will take over from here
+    console.log("form values", e.target)
     e.preventDefault()
   }
 
@@ -207,7 +209,7 @@ export default function ProductPage() {
                   type="submit"
                   id="checkout-button"
                   className=" disabled:bg-slate-400 disabled:opacity-50 mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                  Add to bag
+                  Checkout with Sphere 🌐
                 </button>
               </form>
             </div>

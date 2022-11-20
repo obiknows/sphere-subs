@@ -1,17 +1,6 @@
 import Head from "next/head"
-import { useState } from "react"
 
-export default function CheckOutPage() {
-  const countries = ["China", "Russia", "UK"]
-  const [menu, setMenu] = useState(false)
-  const [country, setCountry] = useState("United States")
-
-  // TODO: fix this any type, get specific
-  const changeText = (e: any) => {
-    setMenu(false)
-    setCountry(e.target.textContent)
-  }
-
+export default function CheckOutPage(cart: any) {
   return (
     <>
       {/* Head */}
@@ -61,11 +50,14 @@ export default function CheckOutPage() {
             <div className="flex flex-col xl:flex-row justify-center xl:justify-between space-y-6 xl:space-y-0 xl:space-x-6 w-full">
               <div className="xl:w-3/5 flex flex-col sm:flex-row xl:flex-col justify-center items-center bg-gray-100 py-7 sm:py-0 xl:py-10 px-10 xl:w-full">
                 <div className="flex flex-col justify-start items-start w-full space-y-4">
-                  <p className="text-xl md:text-2xl leading-normal text-gray-800">Logitech K251</p>
-                  <p className="text-base font-semibold leading-none text-gray-600">$520.00</p>
+                  <p className="text-xl md:text-2xl leading-normal text-gray-800">{cart.cart.name}</p>
+                  <p className="text-base font-semibold leading-none text-gray-600">${cart.cart.price}</p>
                 </div>
                 <div className="mt-6 sm:mt-0 xl:my-10 xl:px-20 w-52 sm:w-96 xl:w-auto">
-                  <img src="https://i.ibb.co/0GFzTP4/Rectangle-131.png" alt="headphones" />
+                  <img
+                    src="https://images.unsplash.com/photo-1639744093011-98a69e364923?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1046&q=80"
+                    alt="sandwich"
+                  />
                 </div>
               </div>
 
@@ -142,52 +134,9 @@ export default function CheckOutPage() {
                   </div>
                 </div>
 
-                <label className="mt-8 text-base leading-4 text-gray-800">Country or region</label>
-                <div className="mt-2 flex-col">
-                  <div className="relative">
-                    <button className="text-left border rounded-tr rounded-tl border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600 bg-white">
-                      {country}
-                    </button>
-                    <svg
-                      onClick={() => setMenu(!menu)}
-                      className={"transform  cursor-pointer absolute top-4 right-4 " + (menu ? "rotate-180" : "")}
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M3.5 5.75L8 10.25L12.5 5.75"
-                        stroke="#27272A"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    <div
-                      className={
-                        "mt-1 absolute z-10 w-full flex bg-gray-50 justify-start flex-col text-gray-600 " +
-                        (menu ? "block" : "hidden")
-                      }>
-                      {countries.map((country) => (
-                        <div
-                          key={country}
-                          className="cursor-pointer hover:bg-gray-800 hover:text-white px-4 py-2"
-                          onClick={changeText}>
-                          {country}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <input
-                    className="border rounded-bl rounded-br border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
-                    type="text"
-                    placeholder="ZIP"
-                  />
-                </div>
-
                 <button className="mt-8 border border-transparent hover:border-gray-300 bg-gray-900 hover:bg-white text-white hover:text-gray-900 flex justify-center items-center py-4 rounded w-full">
                   <div>
-                    <p className="text-base leading-4">Pay $54652</p>
+                    <p className="text-base leading-4">Pay ${cart.cart.price}</p>
                   </div>
                 </button>
               </div>
@@ -197,4 +146,15 @@ export default function CheckOutPage() {
       </div>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const cartQueryParam = context.query.cart
+  const cartObj = JSON.parse(decodeURI(cartQueryParam))
+
+  return {
+    props: {
+      cart: cartObj,
+    }, // will be passed to the page component as props
+  }
 }
