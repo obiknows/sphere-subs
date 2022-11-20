@@ -24,7 +24,7 @@ const product = {
       alt: "Sandwiches being delivered by possibly underpaid employee",
     },
   ],
-  sizes: [
+  subscriptions: [
     { name: "1 Month", inStock: true },
     { name: "3 Months", inStock: true },
     { name: "1 Year", inStock: true },
@@ -45,7 +45,7 @@ function classNames(...classes: any) {
 }
 
 export default function ProductPage() {
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+  const [selectedSize, setSelectedSize] = useState(product.subscriptions[2])
 
   return (
     <>
@@ -121,7 +121,7 @@ export default function ProductPage() {
                   <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
                     <RadioGroup.Label className="sr-only"> Choose a size </RadioGroup.Label>
                     <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                      {product.sizes.map((size) => (
+                      {product.subscriptions.map((size) => (
                         <RadioGroup.Option
                           key={size.name}
                           value={size}
