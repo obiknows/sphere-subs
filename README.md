@@ -1,3 +1,23 @@
+SPHERE SUBS 🌐🚇
+===============
+
+## PROMPT
+
+Description: Our products (subscriptions, invoicing, checkout flows, etc.) will need a frontend for users to interact with when they are paying for goods. We would like you to create a React component for the subscriptions flow. This could include the no-code component that users will use on our web platform to create a subscription or the general checkout flow for a subscription on a given product page.
+
+* We will attach some examples below.
+* Please feel free to mock this up in Figma before starting to implement, though this isn't required.
+* Please regularly push during the exercise so we can get a feel for your thinking process.
+* Agnostic to how it’s implemented, although our stack is: TypeScript, React, Next, Tailwind.
+
+
+
+
+
+
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
