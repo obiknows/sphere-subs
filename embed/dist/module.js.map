@@ -1,1 +1,0 @@
-{"mappings":"AAAO,SAAS,4CAAW;IACzB,QAAQ,GAAG,CAAC;IACZ,OAAO;AACT","sources":["src/index.ts"],"sourcesContent":["export function checkout() {\n  console.log(\"we checkin out\")\n  return \"we checked out\"\n}\n"],"names":[],"version":3,"file":"module.js.map","sourceRoot":"../"}

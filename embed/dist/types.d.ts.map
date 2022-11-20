@@ -1,1 +1,0 @@
-{"mappings":"AAAA,mCAEC","sources":["src/src/index.ts","src/index.ts"],"sourcesContent":[null,"export function checkout() {\n  return \"we checkin out\"\n}\n"],"names":[],"version":3,"file":"types.d.ts.map","sourceRoot":"../"}
