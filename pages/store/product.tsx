@@ -3,6 +3,13 @@ import { useState } from "react"
 import { RadioGroup } from "@headlessui/react"
 import Script from "next/script"
 import Head from "next/head"
+
+type Subscription = {
+  name: string
+  inStock: boolean
+  price: number
+}
+
 const product = {
   name: "Sandwich Delivery Subscription",
   price: "$192",
@@ -25,10 +32,10 @@ const product = {
     },
   ],
   subscriptions: [
-    { name: "1 Month", inStock: true },
-    { name: "3 Months", inStock: true },
-    { name: "1 Year", inStock: true },
-    { name: "Lifetime", inStock: true },
+    { name: "1 Month", inStock: true, price: 99.0 },
+    { name: "3 Months", inStock: true, price: 299.99 },
+    { name: "1 Year", inStock: true, price: 799.99 },
+    { name: "Lifetime", inStock: true, price: 1999.99 },
   ],
   description:
     "The Sandwich Delivery Subscription allows you to fully express your love for subs. Want to get your feet wet? Get the week long subscription and taste the good life. Feeling adventurous? Get a month of subs. Want to feel like a king? Try our exclusive lifetime sandwich subscription. Love subs? Our sandwich subscriptions have you covered.",
@@ -45,7 +52,14 @@ function classNames(...classes: any) {
 }
 
 export default function ProductPage() {
-  const [selectedSize, setSelectedSize] = useState(product.subscriptions[2])
+  const [selectedProductPrice, setSelectedProducePrice] = useState(0)
+  const [selectedSubscription, setselectedSubscription] = useState({})
+
+  const selectProduct = (sub: Subscription) => {
+    // instead of just setting the subscription object, set the sub & price
+    setselectedSubscription(sub)
+    setSelectedProducePrice(sub.price)
+  }
 
   return (
     <>
@@ -108,8 +122,9 @@ export default function ProductPage() {
             {/* Options */}
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               {/* PRICE */}
-              {/* TODO: make price controllable by state */}
-              <p className="text-3xl tracking-tight text-gray-900">{product.price}</p>
+              <p className="text-3xl tracking-tight text-gray-900">
+                {selectedProductPrice ? <>${selectedProductPrice}</> : <>$0</>}
+              </p>
 
               <form className="mt-10">
                 {/* Subscription Options */}
@@ -118,17 +133,22 @@ export default function ProductPage() {
                     <h3 className="text-sm font-medium text-gray-900">Subscription Options</h3>
                   </div>
 
-                  <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
-                    <RadioGroup.Label className="sr-only"> Choose a size </RadioGroup.Label>
+                  <RadioGroup
+                    name="subscription"
+                    value={selectedSubscription}
+                    // onChange={setselectedSubscription}
+                    onChange={selectProduct}
+                    className="mt-4">
+                    <RadioGroup.Label className="sr-only"> Choose a subscription </RadioGroup.Label>
                     <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                      {product.subscriptions.map((size) => (
+                      {product.subscriptions.map((sub) => (
                         <RadioGroup.Option
-                          key={size.name}
-                          value={size}
-                          disabled={!size.inStock}
+                          key={sub.name}
+                          value={sub}
+                          disabled={!sub.inStock}
                           className={({ active }) =>
                             classNames(
-                              size.inStock
+                              sub.inStock
                                 ? "bg-white shadow-sm text-gray-900 cursor-pointer"
                                 : "bg-gray-50 text-gray-200 cursor-not-allowed",
                               active ? "ring-2 ring-indigo-500" : "",
@@ -137,8 +157,8 @@ export default function ProductPage() {
                           }>
                           {({ active, checked }) => (
                             <>
-                              <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
-                              {size.inStock ? (
+                              <RadioGroup.Label as="span">{sub.name}</RadioGroup.Label>
+                              {sub.inStock ? (
                                 <span
                                   className={classNames(
                                     active ? "border" : "border-2",
@@ -205,8 +225,6 @@ export default function ProductPage() {
         </div>
 
         {/* SPHERE SUBS CHECKOUT EMBED */}
-        {/* kind of a work around but work better for me in dev */}
-        {/* TODO: make this work 😂 */}
         <Script strategy="lazyOnload" src="/embed.js" />
       </div>
     </>
