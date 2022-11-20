@@ -6,7 +6,6 @@ export default function App({ Component, pageProps }: AppProps) {
   
   return (
     <>
-      <Script src="../embed/dist/main.js" />
       <Component {...pageProps} />
     </>
   )
