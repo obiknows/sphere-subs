@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from "react"
 import { RadioGroup } from "@headlessui/react"
 import Script from "next/script"
 import Head from "next/head"
-import { log } from "console"
+import { Navbar } from "../../components/Navbar"
 
 type Subscription = {
   name: string
@@ -13,7 +13,6 @@ type Subscription = {
 
 const product = {
   name: "Sandwich Delivery Subscription",
-  price: "$192",
   images: [
     {
       src: "https://images.unsplash.com/photo-1511421585906-57a6e6dc3a2f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80",
@@ -82,6 +81,7 @@ export default function ProductPage() {
       <Head>
         <title>Sphere Subs - Sandwich Delivery Subscription</title>
       </Head>
+      <Navbar />
       <div className="bg-white">
         <div className="pt-6">
           <nav aria-label="Breadcrumb">

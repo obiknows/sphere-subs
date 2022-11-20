@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from "next/head"
 import Link from "next/link"
+import { Navbar } from "../components/Navbar"
 
 export default function Homepage() {
   return (
@@ -9,6 +10,7 @@ export default function Homepage() {
       <Head>
         <title>Sphere Subs</title>
       </Head>
+      <Navbar />
       {/* Body */}
       <div className=" overflow-hidden bg-white">
         <div className="pt-16 pb-80 sm:pt-24 sm:pb-40 lg:pt-40 lg:pb-48">
