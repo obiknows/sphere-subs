@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react"
+import { useRef, useEffect, useState } from "react"
 import { RadioGroup } from "@headlessui/react"
 import Script from "next/script"
 import Head from "next/head"
@@ -52,6 +52,10 @@ function classNames(...classes: any) {
 }
 
 export default function ProductPage() {
+  // ref
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  // state hooks
   const [selectedProductPrice, setSelectedProducePrice] = useState(0)
   const [selectedSubscription, setselectedSubscription] = useState({})
 
@@ -59,7 +63,24 @@ export default function ProductPage() {
     // instead of just setting the subscription object, set the sub & price
     setselectedSubscription(sub)
     setSelectedProducePrice(sub.price)
+    // also set the data attr on the button
+    if (buttonRef.current) {
+      buttonRef.current.setAttribute("data-sub", JSON.stringify(sub))
+    }
   }
+
+  const startCheckout = (e: React.SyntheticEvent) => {
+    // prevent default form submission
+    e.preventDefault()
+
+    console.log("form submit event", e)
+  }
+
+  // useEffect(() => {
+  //   if (buttonRef.current) {
+  //     buttonRef.current.setAttribute("data-sub", JSON.stringify(selectedSubscription))
+  //   }
+  // }, [buttonRef, selectedSubscription])
 
   return (
     <>
@@ -126,7 +147,7 @@ export default function ProductPage() {
                 {selectedProductPrice ? <>${selectedProductPrice}</> : <>$0</>}
               </p>
 
-              <form className="mt-10">
+              <form className="mt-10" onSubmit={startCheckout}>
                 {/* Subscription Options */}
                 <div className="mt-10">
                   <div className="flex items-center justify-between">
@@ -189,9 +210,11 @@ export default function ProductPage() {
                 </div>
 
                 <button
+                  ref={buttonRef}
+                  disabled={selectedProductPrice === 0 ? true : false}
                   type="submit"
                   id="checkout-button"
-                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  className=" disabled:bg-slate-400 disabled:opacity-50 mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                   Add to bag
                 </button>
               </form>
