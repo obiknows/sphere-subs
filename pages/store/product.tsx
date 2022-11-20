@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { StarIcon } from "@heroicons/react/20/solid"
 import { RadioGroup } from "@headlessui/react"
-
+import Script from "next/script"
 const product = {
   name: "Sandwich Delivery Subscription",
   price: "$192",
@@ -197,6 +197,9 @@ export default function Example() {
           </div>
         </div>
       </div>
+
+      {/* SPHERE SUBS CHECKOUT EMBED */}
+      <Script src="./embed.js" />
     </div>
   )
 }
