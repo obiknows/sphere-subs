@@ -70,17 +70,9 @@ export default function ProductPage() {
   }
 
   const startCheckout = (e: React.SyntheticEvent) => {
-    // prevent default form submission
+    // prevent default form submission, our embedded js will take over from here
     e.preventDefault()
-
-    console.log("form submit event", e)
   }
-
-  // useEffect(() => {
-  //   if (buttonRef.current) {
-  //     buttonRef.current.setAttribute("data-sub", JSON.stringify(selectedSubscription))
-  //   }
-  // }, [buttonRef, selectedSubscription])
 
   return (
     <>
